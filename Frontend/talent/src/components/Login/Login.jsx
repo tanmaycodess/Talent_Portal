@@ -15,7 +15,7 @@ const Login = () => {
         try {
             setErrorMessage('');
             setLoading(true);
-            const response = await axios.post(`http://localhost:5000/login`, { usernameOrEmail, password });
+            const response = await axios.post(`https://talent-portal.onrender.com/login`, { usernameOrEmail, password });
 
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('token', response.data.token);

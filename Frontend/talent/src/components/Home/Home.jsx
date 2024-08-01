@@ -9,7 +9,7 @@ const Home = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/talent');
+                const response = await axios.get('https://talent-portal.onrender.com/api/talent');
                 setTalents(response.data);
             } catch (error) {
                 console.error('Error fetching talents:', error);

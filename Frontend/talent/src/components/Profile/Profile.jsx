@@ -20,7 +20,7 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/talent');
+                const response = await axios.get('https://talent-portal.onrender.com/api/talent');
                 setTalents(response.data);
             } catch (error) {
                 console.error('Error fetching talents:', error);
@@ -33,7 +33,7 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
-                const response = await axios.get(`http://localhost:5000/api/talent/${selectedId}`);
+                const response = await axios.get(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
                 setSelectedTalent(response.data);
                 setFormData(response.data);
                 setEditMode(false);
@@ -53,7 +53,7 @@ const TalentManagement = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/talent/${formData.id}`, formData);
+            await axios.put(`https://talent-portal.onrender.com/api/talent/${formData.id}`, formData);
             setSelectedTalent(formData);
             setEditMode(false);
         } catch (error) {
@@ -63,7 +63,7 @@ const TalentManagement = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/talent/${formData.id}`);
+            await axios.delete(`https://talent-portal.onrender.com/api/talent/${formData.id}`);
             setSelectedTalent(null);
             setFormData({});
         } catch (error) {
