@@ -1,0 +1,172 @@
+/* TalentManagementPage.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.theading {
+    padding-top: 5rem;
+    font-size: 2rem;
+    /* Larger font size for prominence */
+    font-weight: 700;
+    /* Bold text */
+    color: #333;
+    /* Dark gray color for good contrast */
+    margin-bottom: 20px;
+    /* Space below the heading */
+    text-align: center;
+    /* Center align for better appearance */
+    text-transform: uppercase;
+    /* Uppercase for a strong impression */
+    letter-spacing: 1px;
+    /* Slightly increased spacing between letters */
+    line-height: 1.2;
+    /* Line height for better readability */
+    border-bottom: 2px solid #ff4b4b;
+    /* Underline with color matching the button */
+    padding-bottom: 10px;
+    /* Space between text and border */
+}
+
+@media (max-width: 600px) {
+    .theading {
+        font-size: 2rem;
+        /* Slightly smaller font size on smaller screens */
+        margin-bottom: 15px;
+        /* Reduced margin on smaller screens */
+        padding-bottom: 8px;
+        /* Adjust padding for smaller screens */
+    }
+}
+
+/* Container for the table */
+.mcontainer {
+   
+    max-height: 600px;
+    /* Adjust this height to show approximately 4 rows */
+    overflow-y: auto;
+    /* Enables vertical scrolling when content overflows */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Optional: Add a slight border to the table */
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+/* Optional: Hover effect for rows */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+ 
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Base Button Styles */
+.cbtn1,
+.cbtn2,
+.cbtn3 {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 4px;
+    font-size: 14px;
+}
+
+/* Selected Button Style */
+.cbtn1 {
+    background-color: #4caf50;
+    /* Green */
+}
+
+.cbtn1.active {
+    background-color: #a69800;
+    border: 2px solid #1b1313;    /* Darker Green */
+}
+
+/* Rejected Button Style */
+.cbtn2 {
+
+    background-color: #f44336;
+    /* Red */
+}
+
+.cbtn2.active {
+    background-color: #a69800;
+    border: 2px solid #1b1313;    /* Darker Red */
+}
+
+/* Blocked Button Style */
+.cbtn3 {
+    background-color: #9e9e9e;
+    /* Grey */
+}
+
+.cbtn3.active {
+    background-color: #a69800;
+    border: 2px solid #1b1313;
+    /* Darker Grey */
+}
+
+/* Download Resume Button */
+.dbtn {
+    background-color: #ff4b4b;
+    /* Blue */
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.cbtn2:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

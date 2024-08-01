@@ -1,0 +1,159 @@
+:root {
+    --header-height: 3rem;
+    --nav-link-color: #222;
+    --nav-link-hover-color: #555;
+    --nav-link-active-color: #ff4b4b;
+    --nav-link-cta-bg: #007bff;
+    --nav-link-cta-color: #fff;
+    --nav-link-cta-hover-bg: #ff4b4b;
+    --nav-link-active-bg: rgba(0, 123, 255, 0.1);
+    /* Background color for active link */
+    --nav-link-active-underline: 3px solid #ff4b4b;
+    /* Underline for active link */
+}
+
+.header {
+    width: 100%;
+    height: var(--header-height);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 2rem;
+}
+
+.nav__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--nav-link-color);
+    text-decoration: none;
+}
+
+.nav__menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav__item {
+    list-style: none;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: var(--nav-link-color);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
+}
+
+.nav__link:hover {
+    color: var(--nav-link-hover-color);
+}
+
+.nav__link.nav__cta {
+    background-color: var(--nav-link-cta-bg);
+    color: var(--nav-link-cta-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s;
+}
+
+.nav__link.nav__cta:hover {
+    background-color: var(--nav-link-cta-hover-bg);
+}
+
+.nav__link.active {
+    color: var(--nav-link-active-color);
+    background-color: var(--nav-link-active-bg);
+    font-weight: bold;
+    border-bottom: var(--nav-link-active-underline);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav__close,
+.nav__toggle {
+    display: none;
+}
+
+.Logout-btn {
+    background-color: #ff4b4b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Logout-btn:hover {
+    background-color: #ff1a1a;
+}
+
+.Logout-btn:focus {
+    outline: none;
+}
+
+.nav__item {
+    margin: 0 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .nav__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav__menu.active {
+        right: 0;
+    }
+
+    .nav__list {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .nav__close,
+    .nav__toggle {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .nav__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .nav__toggle {
+        display: block;
+        cursor: pointer;
+    }
+}

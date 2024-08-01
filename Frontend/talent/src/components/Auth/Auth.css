@@ -1,0 +1,121 @@
+/* App.css */
+
+:root {
+    --header-height: 3rem;
+    --nav-link-color: #222;
+    --nav-link-hover-color: #555;
+    --nav-link-active-color: #ff4b4b;
+    --nav-link-cta-bg: #007bff;
+    --nav-link-cta-color: #fff;
+    --nav-link-cta-hover-bg: #ff4b4b;
+    --nav-link-active-bg: rgba(0, 123, 255, 0.1);
+    --nav-link-active-underline: 3px solid #ff4b4b;
+    --primary-bg: #f9f9f9;
+    --card-bg: #fff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --button-bg: #ff4b4b;
+    --button-hover-bg: #ff7b7b;
+    --button-text: #fff;
+    --delete-btn-bg: #ff4b4b;
+    --delete-btn-hover-bg: #f37878;
+}
+
+/* General container */
+.app-container {
+    padding-top: 5rem;
+   
+    background-color: var(--primary-bg);
+}
+
+/* Heading */
+h1 {
+        font-size: 2rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #ff4b4b;
+        padding-bottom: 10px;
+}
+
+/* UserForm styling */
+.user-form {
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin: auto;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--card-shadow);
+}
+
+.user-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.user-form button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.user-form button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* UserList styling */
+.user-list {
+    margin-top: 20px;
+}
+
+.user-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-list table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+.user-list th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+.user-list th {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.user-list button {
+    background-color: var(--delete-btn-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.user-list button:hover {
+    background-color: var(--delete-btn-hover-bg);
+}
