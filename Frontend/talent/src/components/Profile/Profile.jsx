@@ -4,10 +4,14 @@ import './Profile.css';
 import Navbar from '../Navbar/Navbar';
 
 const commentOptions = [
-    'Excellent candidate',
-    'Needs improvement',
-    'Suitable for future roles',
-    'Not a good fit'
+    'Interested for Freelance',
+    'Interested but presently not avilable can be contacted afterward',
+    'Interested for fulltime',
+    'Intereted For fulltime remote work',
+    'Resigned',
+    'can be contacted afterward',
+    'Possesses strong technical skills but has room for improvement in communication',
+    ' '
 ];
 
 const TalentManagement = () => {
