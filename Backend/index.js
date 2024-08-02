@@ -154,7 +154,7 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 const detailsSchema = new mongoose.Schema({
-    id:Number,
+    id: Number,
     name: String,
     technology: String,
     client: String,
@@ -166,7 +166,7 @@ const detailsSchema = new mongoose.Schema({
     linkedinProfile: String,
     comment: String,
     resume: String,
-});
+}, { timestamps: true });
 
 detailsSchema.plugin(AutoIncrement, { inc_field: 'id' });
 
