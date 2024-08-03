@@ -7,6 +7,7 @@ import Details from './components/Details/Details';
 import Management from './components/Management/Management';
 import Profile from './components/Profile/Profile';
 import Auth from './components/Auth/Auth';
+import Filter from './components/Filter/Filter';
 
 const App = () => {
   return (
@@ -57,6 +58,15 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Auth />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/filter"
+            element={
+              <ProtectedRoute>
+                <Filter />
               </ProtectedRoute>
             }
           />

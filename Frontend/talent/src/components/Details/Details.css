@@ -91,6 +91,62 @@ input[type="file"]:focus {
     padding-bottom: 8px;
 }
 
+/* Style for the dropdown */
+.form1 select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    appearance: none;
+    /* Removes default styling */
+    cursor: pointer;
+    /* Changes cursor to pointer */
+    margin-bottom: 15px;
+    /* Space between fields */
+    transition: border-color 0.3s ease;
+    /* Smooth border color transition */
+}
+
+.form1 select:focus {
+    border-color: #007bff;
+    /* Changes border color on focus */
+    outline: none;
+    /* Removes default outline */
+}
+
+.form1 select option {
+    padding: 10px;
+    /* Space inside options */
+}
+
+/* Optional: Custom dropdown arrow */
+.form1 select::-ms-expand {
+    display: none;
+    /* Hide default arrow in IE */
+}
+
+.form1 select::after {
+    content: '\u25BC';
+    /* Downward arrow */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Optional: Container styling to ensure proper positioning */
+.form1 {
+    position: relative;
+}
+
+.form1 select {
+    padding-right: 30px;
+    /* Extra space for custom arrow */
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .heading {

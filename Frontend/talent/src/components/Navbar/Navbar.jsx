@@ -52,10 +52,16 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                         <li className="nav__item">
-                            <NavLink to="/auth" className="nav__link" onClick={handleClose}>
-                                auth
+                            <NavLink to="/filter" className="nav__link" onClick={handleClose}>
+                                Filter
                             </NavLink>
                         </li>
+                        <li className="nav__item">
+                            <NavLink to="/auth" className="nav__link" onClick={handleClose}>
+                                User Management
+                            </NavLink>
+                        </li>
+                       
                         <li className="nav__item">
                             <button className="Logout-btn" onClick={handleLogout}>Log out</button>
                         </li>

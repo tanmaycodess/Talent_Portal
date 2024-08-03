@@ -308,4 +308,33 @@ app.get('/api/talent/search', async (req, res) => {
     }
 });
 
+// endpoint to filter
+
+const normalizeText = (text) => text.trim().toLowerCase();
+
+app.get('/filter', async (req, res) => {
+    const { technology, comment } = req.query;
+
+    let filter = {};
+    if (technology) {
+        filter.technology = new RegExp(normalizeText(technology), 'i'); // Case-insensitive match
+    }
+    if (comment) {
+        filter.comment = new RegExp(normalizeText(comment), 'i'); // Case-insensitive match
+    }
+
+
+    try {
+        const results = await Details.find(filter);
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
+
+
+
 
