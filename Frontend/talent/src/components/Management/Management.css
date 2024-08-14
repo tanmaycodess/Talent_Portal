@@ -119,7 +119,7 @@ button {
 /* Rejected Button Style */
 .cbtn2 {
 
-    background-color: #f44336;
+    background-color: #4caf50;
     /* Red */
 }
 
@@ -130,7 +130,7 @@ button {
 
 /* Blocked Button Style */
 .cbtn3 {
-    background-color: #9e9e9e;
+    background-color: #4caf50;
     /* Grey */
 }
 

@@ -11,6 +11,10 @@ const commentOptions = [
     'Resigned',
     'can be contacted afterward',
     'Possesses strong technical skills but has room for improvement in communication',
+    'Joined somewhere else',
+    'Good but not in budget',
+    'Good but not as per said experienced', 
+    'technically not as per experience mentioned',
     ' '
 ];
 
