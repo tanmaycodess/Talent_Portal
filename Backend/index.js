@@ -14,8 +14,10 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+
+
 app.use(cors({
-    origin: 'https://talent-portal.onrender.com', 
+    origin: ['https://talent-portal.onrender.com' ,' https://talent-portal-seven.vercel.app '], 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
