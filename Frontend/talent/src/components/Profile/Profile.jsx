@@ -5,17 +5,17 @@ import Navbar from '../Navbar/Navbar';
 
 const commentOptions = [
     'Interested for Freelance',
-    'Interested but presently not avilable can be contacted afterward',
+    'Interested but presently not available can be contacted afterward',
     'Interested for fulltime',
-    'Intereted For fulltime remote work',
+    'Interested For fulltime remote work',
     'Resigned',
-    'can be contacted afterward',
+    'Can be contacted afterward',
     'Possesses strong technical skills but has room for improvement in communication',
     'Joined somewhere else',
     'Good but not in budget',
-    'Good but not as per said experienced', 
-    'technically not as per experience mentioned',
-    ' '
+    'Good but not as per said experienced',
+    'Technically not as per experience mentioned',
+    'Other...'
 ];
 
 const TalentManagement = () => {
@@ -24,6 +24,7 @@ const TalentManagement = () => {
     const [formData, setFormData] = useState({});
     const [editMode, setEditMode] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [customComment, setCustomComment] = useState('');
 
     useEffect(() => {
         const fetchTalents = async () => {
@@ -44,6 +45,7 @@ const TalentManagement = () => {
                 const response = await axios.get(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
                 setSelectedTalent(response.data);
                 setFormData(response.data);
+                setCustomComment(response.data.comment === 'Other...' ? response.data.customComment : '');
                 setEditMode(false);
             } catch (error) {
                 console.error('Error fetching talent details:', error);
@@ -56,7 +58,19 @@ const TalentManagement = () => {
     };
 
     const handleCommentChange = (e) => {
-        setFormData({ ...formData, comment: e.target.value });
+        const value = e.target.value;
+        if (value === 'Other...') {
+            setFormData({ ...formData, comment: value });
+        } else {
+            setFormData({ ...formData, comment: value });
+            setCustomComment(''); // Clear custom comment if any other option is selected
+        }
+    };
+
+    const handleCustomCommentChange = (e) => {
+        const value = e.target.value;
+        setCustomComment(value);
+        setFormData({ ...formData, customComment: value });
     };
 
     const handleUpdate = async () => {
@@ -111,19 +125,54 @@ const TalentManagement = () => {
                             {editMode ? (
                                 <div>
                                     <h3>Edit Talent Details</h3>
-                                    <form className="talent-form">
+                                    <form className="talent-form" onSubmit={(e) => e.preventDefault()}>
                                         <label className="talent-form-label">Name:</label>
-                                        <input className="talent-form-input" type="text" name="name" value={formData.name} onChange={handleEditChange} />
+                                        <input
+                                            className="talent-form-input"
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleEditChange}
+                                        />
                                         <label className="talent-form-label">Technology:</label>
-                                        <input className="talent-form-input" type="text" name="technology" value={formData.technology} onChange={handleEditChange} />
+                                        <input
+                                            className="talent-form-input"
+                                            type="text"
+                                            name="technology"
+                                            value={formData.technology}
+                                            onChange={handleEditChange}
+                                        />
                                         <label className="talent-form-label">Client:</label>
-                                        <input className="talent-form-input" type="text" name="client" value={formData.client} onChange={handleEditChange} />
+                                        <input
+                                            className="talent-form-input"
+                                            type="text"
+                                            name="client"
+                                            value={formData.client}
+                                            onChange={handleEditChange}
+                                        />
                                         <label className="talent-form-label">Email:</label>
-                                        <input className="talent-form-input" type="email" name="email" value={formData.email} onChange={handleEditChange} />
+                                        <input
+                                            className="talent-form-input"
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleEditChange}
+                                        />
                                         <label className="talent-form-label">Contact No:</label>
-                                        <input className="talent-form-input" type="text" name="contactNo" value={formData.contactNo} onChange={handleEditChange} />
+                                        <input
+                                            className="talent-form-input"
+                                            type="text"
+                                            name="contactNo"
+                                            value={formData.contactNo}
+                                            onChange={handleEditChange}
+                                        />
                                         <label className="talent-form-label">Comment:</label>
-                                        <select className="talent-form-select" name="comment" value={formData.comment} onChange={handleCommentChange}>
+                                        <select
+                                            className="talent-form-select"
+                                            name="comment"
+                                            value={formData.comment}
+                                            onChange={handleCommentChange}
+                                        >
                                             <option value="" disabled>Select a comment</option>
                                             {commentOptions.map(comment => (
                                                 <option key={comment} value={comment}>
@@ -131,9 +180,22 @@ const TalentManagement = () => {
                                                 </option>
                                             ))}
                                         </select>
-                                        <label className="talent-form-label">LinkedIn Profile</label>
-                                        <input className="talent-form-input" type="text" name="linkedinProfile" value={formData.linkedinProfile} onChange={handleEditChange} />
-                                        <button className="submit-button" type="button" onClick={handleUpdate}>Update</button>
+                                        {formData.comment === 'Other...' && (
+                                            <input
+                                                type="text"
+                                                placeholder="Enter your comment"
+                                                value={customComment}
+                                                onChange={handleCustomCommentChange}
+                                                className="custom-comment-input"
+                                            />
+                                        )}
+                                        <button
+                                            className="submit-button"
+                                            type="button"
+                                            onClick={handleUpdate}
+                                        >
+                                            Update
+                                        </button>
                                     </form>
                                 </div>
                             ) : (
@@ -180,8 +242,20 @@ const TalentManagement = () => {
                                         </tbody>
                                     </table>
                                     <div className="talent-actions">
-                                        <button className="submit-button" onClick={() => setEditMode(true)}>Edit</button>
-                                        <button className="submit-button" onClick={handleDelete}>Delete</button>
+                                        <button
+                                            className="submit-button"
+                                            type="button"
+                                            onClick={() => setEditMode(true)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="submit-button"
+                                            type="button"
+                                            onClick={handleDelete}
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             )}
