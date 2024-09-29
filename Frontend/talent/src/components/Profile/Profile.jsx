@@ -29,7 +29,7 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('https://talent-portal.onrender.com/api/talent');
+                const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/api/talent');
                 setTalents(response.data);
             } catch (error) {
                 console.error('Error fetching talents:', error);
@@ -42,7 +42,7 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
-                const response = await axios.get(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
+                const response = await axios.get(`https://talentapp-z4fuh7pe.b4a.run/api/talent/${selectedId}`);
                 setSelectedTalent(response.data);
                 setFormData(response.data);
                 setCustomComment(response.data.comment === 'Other...' ? response.data.customComment : '');
