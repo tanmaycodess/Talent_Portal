@@ -14,7 +14,7 @@ const App = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('https://talent-portal.onrender.com/users');
+            const response = await axios.get('https://talent-portal-undl.vercel.app/users');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -23,7 +23,7 @@ const App = () => {
 
     const addUser = async (user) => {
         try {
-            await axios.post('https://talent-portal.onrender.com/users', user);
+            await axios.post('https://talent-portal-undl.vercel.app/users', user);
             fetchUsers();
         } catch (error) {
             console.error('Error adding user:', error);
@@ -32,7 +32,7 @@ const App = () => {
 
     const updateUser = async (id, user) => {
         try {
-            await axios.put(`https://talent-portal.onrender.com/users/${id}`, user);
+            await axios.put(`https://talent-portal-undl.vercel.app/users/${id}`, user);
             fetchUsers();
             setEditUser(null);
         } catch (error) {
@@ -42,7 +42,7 @@ const App = () => {
 
     const deleteUser = async (id) => {
         try {
-            await axios.delete(`https://talent-portal.onrender.com/users/${id}`);
+            await axios.delete(`https://talent-portal-undl.vercel.app/users/${id}`);
             fetchUsers();
         } catch (error) {
             console.error('Error deleting user:', error);
