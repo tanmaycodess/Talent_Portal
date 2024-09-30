@@ -13,7 +13,7 @@ const ApplicationsList = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await fetch('http://localhost:5000/applications');
+                const response = await fetch('https://talentapply-1s9izbs7.b4a.run/applications');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -40,7 +40,7 @@ const ApplicationsList = () => {
             try {
                 const jobResponses = await Promise.all(
                     uniqueJobIds.map(jobId =>
-                        fetch(`http://localhost:5000/api/jobs/${jobId}`)
+                        fetch(`https://talentapply-1s9izbs7.b4a.run/api/jobs/${jobId}`)
                     )
                 );
 
@@ -63,7 +63,7 @@ const ApplicationsList = () => {
             try {
                 const applicantResponses = await Promise.all(
                     uniqueApplicantIds.map(applicantId =>
-                        fetch(`http://localhost:5000/api/applicants/${applicantId}`)
+                        fetch(`https://talentapply-1s9izbs7.b4a.run/api/applicants/${applicantId}`)
                     )
                 );
 
@@ -90,13 +90,13 @@ const ApplicationsList = () => {
     }, [resumeDownloadUrl]);
 
     const handleResumeDownload = (applicationId) => {
-        const downloadUrl = `http://localhost:5000/applications/${applicationId}/resume`;
+        const downloadUrl = `https://talentapply-1s9izbs7.b4a.run/applications/${applicationId}/resume`;
         setResumeDownloadUrl(downloadUrl);
     };
 
     const handleStatusChange = async (applicationId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/applications/${applicationId}/status`, {
+            const response = await fetch(`https://talentapply-1s9izbs7.b4a.run/api/applications/${applicationId}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
