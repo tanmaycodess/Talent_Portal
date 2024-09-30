@@ -15,7 +15,7 @@ const JobPostForm = () => {
         const fetchJobs = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:5000/api/jobs');
+                const response = await fetch('https://talentapply-1s9izbs7.b4a.run/api/jobs');
                 if (!response.ok) throw new Error('Failed to fetch jobs.');
                 const data = await response.json();
                 setJobs(data);
@@ -36,7 +36,7 @@ const JobPostForm = () => {
         const locations = jobLocation.split(',').map(loc => loc.trim());
 
         try {
-            const response = await fetch('http://localhost:5000/api/jobs', {
+            const response = await fetch('https://talentapply-1s9izbs7.b4a.run/api/jobs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const JobPostForm = () => {
         setSuccess('');
 
         try {
-            const response = await fetch(`http://localhost:5000/api/jobs/${jobId}`, {
+            const response = await fetch(`https://talentapply-1s9izbs7.b4a.run/api/jobs/${jobId}`, {
                 method: 'DELETE',
             });
 
