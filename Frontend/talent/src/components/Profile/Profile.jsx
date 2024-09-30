@@ -28,7 +28,7 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await fetch('https://talent-portal.onrender.com/api/talent');
+                const response = await fetch('https://talentapply-1s9izbs7.b4a.run/api/talent');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setTalents(data);
@@ -43,7 +43,7 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
-                const response = await fetch(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
+                const response = await fetch(`https://talentapply-1s9izbs7.b4a.run/api/talent/${selectedId}`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setSelectedTalent(data);
@@ -85,7 +85,7 @@ const TalentManagement = () => {
                 customComment: formData.comment === 'Other...' ? customComment : '',
             };
 
-            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+            const response = await fetch(`https://talentapply-1s9izbs7.b4a.run/api/talent/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const TalentManagement = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+            const response = await fetch(`https://talentapply-1s9izbs7.b4a.run/api/talent/${formData.id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Network response was not ok');
