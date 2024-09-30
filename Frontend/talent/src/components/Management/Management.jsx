@@ -9,7 +9,7 @@ const TalentManagementPage = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('https://talent-portal.onrender.com/api/talent');
+                const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/api/talent');
                 setTalents(response.data);
             } catch (error) {
                 console.error('There was an error fetching the talents!', error);
@@ -21,7 +21,7 @@ const TalentManagementPage = () => {
 
     const handleFeedbackChange = async (id, feedback) => {
         try {
-            await axios.patch(`https://talent-portal.onrender.com/api/talent/${id}`, { feedback });
+            await axios.patch(`https://talentapp-z4fuh7pe.b4a.run/api/talent/${id}`, { feedback });
             setTalents((prevTalents) =>
                 prevTalents.map((talent) =>
                     talent.id === id ? { ...talent, feedback } : talent
@@ -34,7 +34,7 @@ const TalentManagementPage = () => {
 
     const handleDownloadResume = async (id) => {
         try {
-            const response = await axios.get(`https://talent-portal.onrender.com/api/talent/resume/${id}`, {
+            const response = await axios.get(`https://talentapp-z4fuh7pe.b4a.run/api/talent/resume/${id}`, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

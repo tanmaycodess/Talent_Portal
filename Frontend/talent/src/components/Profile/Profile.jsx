@@ -28,10 +28,15 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
+<<<<<<< HEAD
                 const response = await fetch('https://talent-portal.onrender.com/api/talent');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setTalents(data);
+=======
+                const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/api/talent');
+                setTalents(response.data);
+>>>>>>> e06c4dcb4f355e8bd8d6a4fd5eee356cb6bc7c42
             } catch (error) {
                 console.error('Error fetching talents:', error);
             }
@@ -43,12 +48,19 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
+<<<<<<< HEAD
                 const response = await fetch(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setSelectedTalent(data);
                 setFormData(data);
                 setCustomComment(data.comment === 'Other...' ? data.customComment : '');
+=======
+                const response = await axios.get(`https://talentapp-z4fuh7pe.b4a.run/api/talent/${selectedId}`);
+                setSelectedTalent(response.data);
+                setFormData(response.data);
+                setCustomComment(response.data.comment === 'Other...' ? response.data.customComment : '');
+>>>>>>> e06c4dcb4f355e8bd8d6a4fd5eee356cb6bc7c42
                 setEditMode(false);
             } catch (error) {
                 console.error('Error fetching talent details:', error);

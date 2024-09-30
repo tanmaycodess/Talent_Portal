@@ -23,7 +23,7 @@ const FilterComponent = () => {
         try {
             // Construct query parameters
             const queryString = new URLSearchParams({ technology, comment }).toString();
-            const response = await fetch(`https://talent-portal.onrender.com/filter?${queryString}`);
+            const response = await fetch(`https://talentapp-z4fuh7pe.b4a.run/filter?${queryString}`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
