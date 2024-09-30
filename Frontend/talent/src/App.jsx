@@ -8,6 +8,8 @@ import Management from './components/Management/Management';
 import Profile from './components/Profile/Profile';
 import Auth from './components/Auth/Auth';
 import Filter from './components/Filter/Filter';
+import Form from './components/Form/Form';
+import Applicants from './components/Applicants/Applicants';
 
 const App = () => {
   return (
@@ -67,6 +69,23 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Filter />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/form"
+            element={
+              <ProtectedRoute>
+                <Form />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/applicants"
+            element={
+              <ProtectedRoute>
+               <Applicants/>
               </ProtectedRoute>
             }
           />

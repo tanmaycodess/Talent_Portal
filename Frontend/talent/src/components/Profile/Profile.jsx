@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './Profile.css';
 import Navbar from '../Navbar/Navbar';
 
@@ -29,8 +28,10 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('https://talent-portal.onrender.com/api/talent');
-                setTalents(response.data);
+                const response = await fetch('https://talent-portal.onrender.com/api/talent');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                setTalents(data);
             } catch (error) {
                 console.error('Error fetching talents:', error);
             }
@@ -42,10 +43,12 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
-                const response = await axios.get(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
-                setSelectedTalent(response.data);
-                setFormData(response.data);
-                setCustomComment(response.data.comment === 'Other...' ? response.data.customComment : '');
+                const response = await fetch(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                setSelectedTalent(data);
+                setFormData(data);
+                setCustomComment(data.comment === 'Other...' ? data.customComment : '');
                 setEditMode(false);
             } catch (error) {
                 console.error('Error fetching talent details:', error);
@@ -61,6 +64,7 @@ const TalentManagement = () => {
         const value = e.target.value;
         if (value === 'Other...') {
             setFormData({ ...formData, comment: value });
+            setCustomComment(formData.customComment || ''); // Set existing custom comment
         } else {
             setFormData({ ...formData, comment: value });
             setCustomComment(''); // Clear custom comment if any other option is selected
@@ -75,8 +79,23 @@ const TalentManagement = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`https://talent-portal.onrender.com/api/talent/${formData.id}`, formData);
-            setSelectedTalent(formData);
+            const updatedData = {
+                ...formData,
+                comment: formData.comment === 'Other...' ? 'Other...' : formData.comment,
+                customComment: formData.comment === 'Other...' ? customComment : '',
+            };
+
+            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setSelectedTalent(data);
             setEditMode(false);
         } catch (error) {
             console.error('Error updating talent details:', error);
@@ -85,7 +104,10 @@ const TalentManagement = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`https://talent-portal.onrender.com/api/talent/${formData.id}`);
+            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
             setSelectedTalent(null);
             setFormData({});
         } catch (error) {

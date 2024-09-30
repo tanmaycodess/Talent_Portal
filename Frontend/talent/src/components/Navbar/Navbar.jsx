@@ -61,6 +61,18 @@ const Navbar = () => {
                                 User Management
                             </NavLink>
                         </li>
+
+                        <li className="nav__item">
+                            <NavLink to="/form" className="nav__link" onClick={handleClose}>
+                               PostJobs
+                            </NavLink>
+                        </li>
+
+                        <li className="nav__item">
+                            <NavLink to="/applicants" className="nav__link" onClick={handleClose}>
+                                Applicants
+                            </NavLink>
+                        </li>
                        
                         <li className="nav__item">
                             <button className="Logout-btn" onClick={handleLogout}>Log out</button>
