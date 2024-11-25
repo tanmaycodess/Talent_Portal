@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Form.module.css'; // Import the CSS module
 import Navbar from '../Navbar/Navbar';
 
-const API_BASE_URL = 'http://localhost:5001';
+const API_BASE_URL = 'https://talentapply-1s9izbs7.b4a.run';
 
 const JobPostForm = () => {
     const [jobTitle, setJobTitle] = useState('');
