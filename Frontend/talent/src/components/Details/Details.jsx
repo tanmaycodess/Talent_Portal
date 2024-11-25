@@ -42,7 +42,7 @@ const TalentFormPage = () => {
         }
 
         try {
-            await axios.post('https://talentapp-z4fuh7pe.b4a.run/api/talent', formData, {
+            await axios.post('https://talent-portal.onrender.com/api/talent', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
