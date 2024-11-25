@@ -14,7 +14,11 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cors({
+    origin: 'https://talent-portal-seven.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+}));
 
 const uri = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
