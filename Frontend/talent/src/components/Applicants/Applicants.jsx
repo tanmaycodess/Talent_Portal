@@ -13,7 +13,7 @@ const ApplicationsList = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await fetch('https://talent-portal.onrender.com/applications');
+                const response = await fetch('talentapp-z4fuh7pe.b4a.run/applications');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
