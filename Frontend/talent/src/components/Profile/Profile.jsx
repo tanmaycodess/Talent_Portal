@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import Navbar from '../Navbar/Navbar';
+import API_BASE_URL from '../Config/config'; // Import the API base URL
 
 const commentOptions = [
     'Interested for Freelance',
@@ -28,14 +29,17 @@ const TalentManagement = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await fetch('https://talent-portal.onrender.com/api/talent');
-                if (!response.ok) throw new Error('Network response was not ok');
+                const response = await fetch(`${API_BASE_URL}/api/talent`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const data = await response.json();
                 setTalents(data);
             } catch (error) {
                 console.error('Error fetching talents:', error);
             }
         };
+
         fetchTalents();
     }, []);
 
@@ -43,7 +47,7 @@ const TalentManagement = () => {
         const selectedId = e.target.value;
         if (selectedId) {
             try {
-                const response = await fetch(`https://talent-portal.onrender.com/api/talent/${selectedId}`);
+                const response = await fetch(`${API_BASE_URL}/api/talent/${selectedId}`); // Use the imported API URL
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setSelectedTalent(data);
@@ -85,7 +89,7 @@ const TalentManagement = () => {
                 customComment: formData.comment === 'Other...' ? customComment : '',
             };
 
-            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/talent/${formData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +108,7 @@ const TalentManagement = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`https://talent-portal.onrender.com/api/talent/${formData.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/talent/${formData.id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Network response was not ok');
@@ -263,22 +267,18 @@ const TalentManagement = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div className="talent-actions">
-                                        <button
-                                            className="submit-button"
-                                            type="button"
-                                            onClick={() => setEditMode(true)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="submit-button"
-                                            type="button"
-                                            onClick={handleDelete}
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
+                                    <button
+                                        className="submit-button"
+                                        onClick={() => setEditMode(true)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="delete-button"
+                                        onClick={handleDelete}
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
                             )}
                         </div>

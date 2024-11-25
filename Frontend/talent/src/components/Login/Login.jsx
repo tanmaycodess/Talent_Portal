@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import  API_BASE_URL from '../Config/config';
+
 
 const Login = () => {
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -15,7 +17,7 @@ const Login = () => {
         try {
             setErrorMessage('');
             setLoading(true);
-            const response = await axios.post(`https://talentapp-z4fuh7pe.b4a.run/login`, { usernameOrEmail, password });
+            const response = await axios.post(`${API_BASE_URL}/login`, { usernameOrEmail, password });
 
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('token', response.data.token);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
-import './Home.css'; // Make sure to create this CSS file
+import './Home.css'; // Ensure this file is created
+import API_BASE_URL from '../Config/config'; // Import the API URL
 
 const Home = () => {
     const [talents, setTalents] = useState([]);
@@ -9,8 +10,13 @@ const Home = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/api/talent');
-                setTalents(response.data);
+                const response = await axios.get(`${API_BASE_URL}/api/talent`);
+                // Ensure the response is an array before setting it
+                if (Array.isArray(response.data)) {
+                    setTalents(response.data);
+                } else {
+                    console.error('Expected an array of talents, but got:', response.data);
+                }
             } catch (error) {
                 console.error('Error fetching talents:', error);
             }
@@ -18,7 +24,8 @@ const Home = () => {
         fetchTalents();
     }, []);
 
-    const filterTalentsByFeedback = (feedback) => talents.filter(talent => talent.feedback === feedback);
+    const filterTalentsByFeedback = (feedback) =>
+        Array.isArray(talents) ? talents.filter((talent) => talent.feedback === feedback) : [];
 
     const getTalentCount = (feedback) => filterTalentsByFeedback(feedback).length;
 
@@ -30,7 +37,7 @@ const Home = () => {
                 <div className="card selected-card">
                     <h3>Selected ({getTalentCount('selected')})</h3>
                     <ul>
-                        {filterTalentsByFeedback('selected').map(talent => (
+                        {filterTalentsByFeedback('selected').map((talent) => (
                             <li key={talent._id}>
                                 {talent.name} - <span style={{ color: 'blue' }}>{talent.comment}</span>
                             </li>
@@ -40,7 +47,7 @@ const Home = () => {
                 <div className="card rejected-card">
                     <h3>Rejected ({getTalentCount('rejected')})</h3>
                     <ul>
-                        {filterTalentsByFeedback('rejected').map(talent => (
+                        {filterTalentsByFeedback('rejected').map((talent) => (
                             <li key={talent._id}>
                                 {talent.name} - <span style={{ color: 'blue' }}>{talent.comment}</span>
                             </li>
@@ -50,7 +57,7 @@ const Home = () => {
                 <div className="card blocked-card">
                     <h3>Blocked ({getTalentCount('blocked')})</h3>
                     <ul>
-                        {filterTalentsByFeedback('blocked').map(talent => (
+                        {filterTalentsByFeedback('blocked').map((talent) => (
                             <li key={talent._id}>
                                 {talent.name} - <span style={{ color: 'blue' }}>{talent.comment}</span>
                             </li>

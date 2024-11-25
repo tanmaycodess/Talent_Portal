@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
-import './Management.css'
+import './Management.css';
+import API_BASE_URL from '../Config/config'; // Import the API base URL
 
 const TalentManagementPage = () => {
     const [talents, setTalents] = useState([]);
@@ -9,8 +10,13 @@ const TalentManagementPage = () => {
     useEffect(() => {
         const fetchTalents = async () => {
             try {
-                const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/api/talent');
-                setTalents(response.data);
+                const response = await axios.get(`${API_BASE_URL}/api/talent`);
+                // Check if the response data is an array
+                if (Array.isArray(response.data)) {
+                    setTalents(response.data);
+                } else {
+                    console.error('Unexpected data format:', response.data);
+                }
             } catch (error) {
                 console.error('There was an error fetching the talents!', error);
             }
@@ -19,9 +25,10 @@ const TalentManagementPage = () => {
         fetchTalents();
     }, []);
 
+
     const handleFeedbackChange = async (id, feedback) => {
         try {
-            await axios.patch(`https://talentapp-z4fuh7pe.b4a.run/api/talent/${id}`, { feedback });
+            await axios.patch(`${API_BASE_URL}/api/talent/${id}`, { feedback });
             setTalents((prevTalents) =>
                 prevTalents.map((talent) =>
                     talent.id === id ? { ...talent, feedback } : talent
@@ -34,7 +41,7 @@ const TalentManagementPage = () => {
 
     const handleDownloadResume = async (id) => {
         try {
-            const response = await axios.get(`https://talentapp-z4fuh7pe.b4a.run/api/talent/resume/${id}`, {
+            const response = await axios.get(`${API_BASE_URL}/api/talent/resume/${id}`, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

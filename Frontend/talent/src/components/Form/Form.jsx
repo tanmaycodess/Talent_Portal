@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './Form.module.css'; // Import the CSS module
 import Navbar from '../Navbar/Navbar';
 
+const API_BASE_URL = 'http://localhost:5001';
+
 const JobPostForm = () => {
     const [jobTitle, setJobTitle] = useState('');
     const [jobLocation, setJobLocation] = useState('');
@@ -11,20 +13,21 @@ const JobPostForm = () => {
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const fetchJobs = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/jobs`);
+            if (!response.ok) throw new Error('Failed to fetch jobs.');
+            const data = await response.json();
+            setJobs(data);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchJobs = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch('http://localhost:5000/api/jobs');
-                if (!response.ok) throw new Error('Failed to fetch jobs.');
-                const data = await response.json();
-                setJobs(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchJobs();
     }, []);
 
@@ -33,10 +36,10 @@ const JobPostForm = () => {
         setError('');
         setSuccess('');
 
-        const locations = jobLocation.split(',').map(loc => loc.trim());
+        const locations = jobLocation.split(',').map((loc) => loc.trim());
 
         try {
-            const response = await fetch('http://localhost:5000/api/jobs', {
+            const response = await fetch(`${API_BASE_URL}/api/jobs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,14 +69,14 @@ const JobPostForm = () => {
         setSuccess('');
 
         try {
-            const response = await fetch(`http://localhost:5000/api/jobs/${jobId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/jobs/${jobId}`, {
                 method: 'DELETE',
             });
 
             if (!response.ok) throw new Error('Failed to delete job');
 
             setSuccess('Job deleted successfully');
-            setJobs(jobs.filter(job => job._id !== jobId));
+            setJobs(jobs.filter((job) => job._id !== jobId));
         } catch (error) {
             setError(error.message);
         }

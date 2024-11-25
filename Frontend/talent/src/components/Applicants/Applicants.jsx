@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
-import styles from './Applicants.module.css'; // Import the CSS module
+import styles from './Applicants.module.css';
+
+// Define the API base URL as a variable
+const API_URL = 'http://localhost:5001'; // You can replace this with the actual API URL
 
 const ApplicationsList = () => {
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [resumeDownloadUrl, setResumeDownloadUrl] = useState(null);
-    const [jobs, setJobs] = useState({}); // State for jobs
-    const [applicants, setApplicants] = useState({}); // State for applicants
+    const [jobs, setJobs] = useState({});
+    const [applicants, setApplicants] = useState({});
 
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const response = await fetch('http://localhost:5000/applications');
+                const response = await fetch(`${API_URL}/applications`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-
-                // Sort applications by createdAt in descending order
                 const sortedApplications = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
                 setApplications(sortedApplications);
                 await fetchJobTitles(sortedApplications);
-                await fetchApplicants(sortedApplications); // Fetch applicants with sorted applications data
+                await fetchApplicants(sortedApplications);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
             }
         };
-
 
         const fetchJobTitles = async (applications) => {
             const jobIds = applications.map(app => app.jobId);
@@ -40,7 +40,7 @@ const ApplicationsList = () => {
             try {
                 const jobResponses = await Promise.all(
                     uniqueJobIds.map(jobId =>
-                        fetch(`http://localhost:5000/api/jobs/${jobId}`)
+                        fetch(`${API_URL}/api/jobs/${jobId}`)
                     )
                 );
 
@@ -63,17 +63,16 @@ const ApplicationsList = () => {
             try {
                 const applicantResponses = await Promise.all(
                     uniqueApplicantIds.map(applicantId =>
-                        fetch(`http://localhost:5000/api/applicants/${applicantId}`)
+                        fetch(`${API_URL}/api/applicants/${applicantId}`)
                     )
                 );
 
                 const applicantData = await Promise.all(applicantResponses.map(res => res.json()));
                 const applicantMap = applicantData.reduce((acc, applicant) => {
-                    acc[applicant.applicantId] = applicant; // Correctly map using applicantId
+                    acc[applicant.applicantId] = applicant;
                     return acc;
                 }, {});
 
-                console.log('Fetched applicants:', applicantMap); // Debug log
                 setApplicants(applicantMap);
             } catch (error) {
                 console.error('Error fetching applicants:', error);
@@ -90,13 +89,13 @@ const ApplicationsList = () => {
     }, [resumeDownloadUrl]);
 
     const handleResumeDownload = (applicationId) => {
-        const downloadUrl = `http://localhost:5000/applications/${applicationId}/resume`;
+        const downloadUrl = `${API_URL}/applications/${applicationId}/resume`;
         setResumeDownloadUrl(downloadUrl);
     };
 
     const handleStatusChange = async (applicationId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/applications/${applicationId}/status`, {
+            const response = await fetch(`${API_URL}/api/applications/${applicationId}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +120,7 @@ const ApplicationsList = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleString(); // or use date.toLocaleDateString() if you want only date
+        return date.toLocaleString();
     };
 
     if (loading) {
@@ -140,9 +139,7 @@ const ApplicationsList = () => {
                 <table className={styles.applicationsTable}>
                     <thead>
                         <tr>
-                            {/* <th>Applicant ID</th> */}
-                            <th>Applicant Name</th> {/* Added Applicant Name header */}
-                            {/* <th>Job ID</th> */}
+                            <th>Applicant Name</th>
                             <th>Job Title</th>
                             <th>Contact Number</th>
                             <th>Applied On</th>
@@ -154,9 +151,7 @@ const ApplicationsList = () => {
                     <tbody>
                         {applications.map((application) => (
                             <tr key={application.applicantId}>
-                                {/* <td>{application.applicantId}</td> */}
-                                <td>{applicants[application.applicantId]?.name || 'N/A'}</td> {/* Display applicant name */}
-                                {/* <td>{application.jobId}</td> */}
+                                <td>{applicants[application.applicantId]?.name || 'N/A'}</td>
                                 <td>{jobs[application.jobId] || 'N/A'}</td>
                                 <td>{application.contactNumber}</td>
                                 <td>{formatDate(application.createdAt)}</td>

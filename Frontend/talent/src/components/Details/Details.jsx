@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
+import API_BASE_URL  from '../Config/config'; // Adjust the path based on file structure
 import './Details.css';
 
 const TalentFormPage = () => {
@@ -17,6 +18,8 @@ const TalentFormPage = () => {
         comment: '',
         resume: null,
     });
+
+    const [message, setMessage] = useState({ type: '', text: '' });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -42,12 +45,13 @@ const TalentFormPage = () => {
         }
 
         try {
-            await axios.post('https://talentapp-z4fuh7pe.b4a.run/api/talent', formData, {
+            await axios.post(API_BASE_URL, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('Talent details submitted successfully');
+            setMessage({ type: 'success', text: 'Talent details submitted successfully.' });
+
             // Clear form after submission
             setTalent({
                 name: '',
@@ -63,20 +67,37 @@ const TalentFormPage = () => {
                 resume: null,
             });
         } catch (error) {
-            console.error('There was an error submitting the talent details!', error);
-            alert(`Error submitting talent details: ${error.response?.data?.error || error.message}`);
+            console.error('Error submitting talent details:', error);
+            setMessage({
+                type: 'error',
+                text: error.response?.data?.error || 'Failed to submit talent details.',
+            });
         }
     };
 
     return (
         <>
             <Navbar />
-
             <div className="form1-container">
                 <h1 className="heading">Add New Talent</h1>
-                <form className='form1' onSubmit={handleSubmit}>
-                    <input type="text" name="name" value={talent.name} onChange={handleChange} placeholder="Name" required />
-                    <select name="technology" value={talent.technology} onChange={handleChange} required>
+                <form className="form1" onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="name"
+                        value={talent.name}
+                        onChange={handleChange}
+                        placeholder="Name"
+                        required
+                    />
+                    <select
+                        name="technology"
+                        value={talent.technology}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="" disabled>
+                            Select Technology
+                        </option>
                         <option value="" disabled>Select Technology</option>
                         <option value="SAP MM">SAP MM</option>
                         <option value="SAP PP">SAP PP</option>
@@ -100,15 +121,55 @@ const TalentFormPage = () => {
                         <option value="SAP Concur">SAP Concur</option>
                         <option value="Salesforce">Salesforce</option>
                         <option value="Salesforce CPQ">Salesforce CPQ</option>
+                        {/* Add your technology options here */}
                     </select>
-                    <input type="text" name="client" value={talent.client} onChange={handleChange} placeholder="Client" required />
-                    <input type="email" name="email" value={talent.email} onChange={handleChange} placeholder="Email" required />
-                    <input type="text" name="contactNo" value={talent.contactNo} onChange={handleChange} placeholder="Contact No" required />
-                    <input type="text" name="source" value={talent.source} onChange={handleChange} placeholder="Source" required />
-                    <input type="url" name="linkedinProfile" value={talent.linkedinProfile} onChange={handleChange} placeholder="LinkedIn Profile" />
-                    {/* <textarea name="comment" value={talent.comment} onChange={handleChange} placeholder="Comment" required></textarea> */}
-                    <input type="file" name="resume" onChange={handleFileChange} />
-                    <button className='sbtn' type="submit">Submit</button>
+                    <input
+                        type="text"
+                        name="client"
+                        value={talent.client}
+                        onChange={handleChange}
+                        placeholder="Client"
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        value={talent.email}
+                        onChange={handleChange}
+                        placeholder="Email"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="contactNo"
+                        value={talent.contactNo}
+                        onChange={handleChange}
+                        placeholder="Contact No"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="source"
+                        value={talent.source}
+                        onChange={handleChange}
+                        placeholder="Source"
+                        required
+                    />
+                    <input
+                        type="url"
+                        name="linkedinProfile"
+                        value={talent.linkedinProfile}
+                        onChange={handleChange}
+                        placeholder="LinkedIn Profile"
+                    />
+                    <input
+                        type="file"
+                        name="resume"
+                        onChange={handleFileChange}
+                    />
+                    <button className="sbtn" type="submit">
+                        Submit
+                    </button>
                 </form>
             </div>
         </>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API_BASE_URL  from '../Config/config';
 import './Filter.css';
 import Navbar from '../Navbar/Navbar';
 
@@ -23,7 +23,7 @@ const FilterComponent = () => {
         try {
             // Construct query parameters
             const queryString = new URLSearchParams({ technology, comment }).toString();
-            const response = await fetch(`https://talentapp-z4fuh7pe.b4a.run/filter?${queryString}`);
+            const response = await fetch(`${API_BASE_URL}/filter?${queryString}`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');

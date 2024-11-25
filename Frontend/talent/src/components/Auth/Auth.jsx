@@ -1,8 +1,8 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Auth.css'; // Ensure you create this CSS file
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../Navbar/Navbar'; // Adjust the import path if needed
+import API_BASE_URL from '../Config/config'; // Import the config file
 
 const App = () => {
     const [users, setUsers] = useState([]);
@@ -14,16 +14,19 @@ const App = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('https://talentapp-z4fuh7pe.b4a.run/users');
+            const response = await axios.get(`${API_BASE_URL}/users`);
             setUsers(response.data);
+            setUsers(Array.isArray(response.data) ? response.data : []);  // Ensure it's an array
+
         } catch (error) {
             console.error('Error fetching users:', error);
+            setUsers([]);
         }
     };
 
     const addUser = async (user) => {
         try {
-            await axios.post('https://talentapp-z4fuh7pe.b4a.run/users', user);
+            await axios.post(`${API_BASE_URL}/users`, user);
             fetchUsers();
         } catch (error) {
             console.error('Error adding user:', error);
@@ -32,7 +35,7 @@ const App = () => {
 
     const updateUser = async (id, user) => {
         try {
-            await axios.put(`https://talentapp-z4fuh7pe.b4a.run/users/${id}`, user);
+            await axios.put(`${API_BASE_URL}/users/${id}`, user);
             fetchUsers();
             setEditUser(null);
         } catch (error) {
@@ -42,7 +45,7 @@ const App = () => {
 
     const deleteUser = async (id) => {
         try {
-            await axios.delete(`https://talentapp-z4fuh7pe.b4a.run/users/${id}`);
+            await axios.delete(`${API_BASE_URL}/users/${id}`);
             fetchUsers();
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -51,28 +54,25 @@ const App = () => {
 
     return (
         <>
-       <Navbar/>
-
-        <div className="app-container">
-            <h1>User Management</h1>
-            <UserForm
-                onAddUser={addUser}
-                onUpdateUser={updateUser}
-                editUser={editUser}
-                setEditUser={setEditUser}
-            />
-            <UserList
-                users={users}
-                onDeleteUser={deleteUser}
-                onEditUser={setEditUser}
-            />
-        </div>
-
+            <Navbar />
+            <div className="app-container">
+                <h1>User Management</h1>
+                <UserForm
+                    onAddUser={addUser}
+                    onUpdateUser={updateUser}
+                    editUser={editUser}
+                    setEditUser={setEditUser}
+                />
+                <UserList
+                    users={users}
+                    onDeleteUser={deleteUser}
+                    onEditUser={setEditUser}
+                />
+            </div>
         </>
     );
 };
 
-// UserForm Component
 const UserForm = ({ onAddUser, onUpdateUser, editUser, setEditUser }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -130,36 +130,33 @@ const UserForm = ({ onAddUser, onUpdateUser, editUser, setEditUser }) => {
     );
 };
 
-// UserList Component
-const UserList = ({ users, onDeleteUser, onEditUser }) => {
-    return (
-        <div className="user-list">
-            <h2>Users</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>UserId</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+const UserList = ({ users, onDeleteUser, onEditUser }) => (
+    <div className="user-list">
+        <h2>Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {users.map(user => (
+                    <tr key={user._id}>
+                        <td>{user.userId}</td>
+                        <td>{user.username}</td>
+                        <td>{user.email}</td>
+                        <td>
+                            <button onClick={() => onEditUser(user)}>Edit</button>
+                            <button onClick={() => onDeleteUser(user._id)}>Delete</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {users.map(user => (
-                        <tr key={user._id}>
-                            <td>{user.userId}</td>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>
-                                <button onClick={() => onEditUser(user)}>Edit</button>
-                                <button onClick={() => onDeleteUser(user._id)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
+                ))}
+            </tbody>
+        </table>
+    </div>
+);
 
 export default App;
