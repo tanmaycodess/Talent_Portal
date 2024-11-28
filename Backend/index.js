@@ -16,7 +16,18 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: '*' 
+  origin: [
+    'https://talent-portal-seven.vercel.app',
+    'https://talent-apply.vercel.app'    
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type', 
+    'Authorization', 
+    'Access-Control-Allow-Origin', 
+    'Access-Control-Allow-Headers'
+  ],
+  credentials: true
 }));
 
 const uri = process.env.MONGODB_URI;
