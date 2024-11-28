@@ -18,7 +18,8 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'https://talent-portal-seven.vercel.app',
-    'https://talent-apply.vercel.app'    
+    'https://talent-apply.vercel.app',
+    'http://localhost:5173'    
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: [

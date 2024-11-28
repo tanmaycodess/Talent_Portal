@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import styles from './Applicants.module.css';
 
-// Define the API base URL as a variable
-const API_URL = 'https://talentapply-1s9izbs7.b4a.run'; // You can replace this with the actual API URL
+const API_URL = 'https://talentapply-1s9izbs7.b4a.run';
+
+// const API_URL = 'http://localhost:5001'; 
+
 
 const ApplicationsList = () => {
     const [applications, setApplications] = useState([]);
