@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://talentnewportal-g18a9us7.b4a.run'; 
+const API_BASE_URL = 'https://talentportalnew-qk0w2rgl.b4a.run'; 
 
 // const API_BASE_URL = 'http://localhost:5000'; 
 
