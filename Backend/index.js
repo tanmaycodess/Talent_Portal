@@ -19,7 +19,8 @@ app.use(cors({
   origin: [
     'https://talent-portal-seven.vercel.app',
     'https://talent-apply.vercel.app',
-    'http://localhost:5173'    
+    'http://localhost:5174',
+    'https://talent-apply-f7xb.vercel.app' 
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: [
@@ -346,10 +347,3 @@ app.get('/filter', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
-
-
-
-
-
-
